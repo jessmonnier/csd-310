@@ -1,3 +1,7 @@
+# Jessica Monnier
+# CSD310 Assignment 6.2
+# 4 February 2025
+
 """ import statements """
 import mysql.connector # to connect
 from mysql.connector import errorcode
@@ -6,7 +10,7 @@ import dotenv # to use .env file
 from dotenv import dotenv_values
 
 #using our .env file
-secrets = dotenv_values(".env")
+secrets = dotenv_values(r"..\.env")
 
 """ database config object """
 config = {
