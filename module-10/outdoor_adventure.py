@@ -15,7 +15,7 @@ working_dir = os.path.dirname(os.path.realpath(__file__))
 os.chdir(working_dir)
 
 # Using ENV file
-secrets = dotenv_values(".env")
+secrets = dotenv_values("..\\.env_outland")
 
 config = {
     "user": secrets["USER"],
@@ -39,8 +39,8 @@ try:
     # Get a database "cursor" to execute queries in our database
     cursor = db.cursor()
 
-    # Get all information from the customer table
-    cursor.execute("SELECT * FROM customer")
+    # Get first 6 entries from the customer table
+    cursor.execute("SELECT * FROM customer LIMIT 6")
     customers = cursor.fetchall()
     
     # Display customer info
@@ -58,7 +58,7 @@ Address:
     input("\n\n  Press Enter to view the contents of the staff table...")
     
     # Get the contents of the staff table
-    cursor.execute("SELECT * FROM staff")
+    cursor.execute("SELECT * FROM staff LIMIT 6")
     employees = cursor.fetchall()
     
     # Display staff info
@@ -73,14 +73,12 @@ Address:
     {}
     {}, {} {}
 Email: {}
-Salary: ${}
-Bonus: {}
 Role: {}""".format(*staff))
 
     input("\n\n  Press Enter to view the contents of the trip table...")
     
-    # Get the contents of the trip table
-    cursor.execute("SELECT * FROM trip")
+    # Get the first 6 entries of the trip table
+    cursor.execute("SELECT * FROM trip LIMIT 6")
     trips = cursor.fetchall()
     
     # Display trip info
@@ -91,13 +89,12 @@ ID: {}
 Destination: {}
 Dates: {} - {}
 Staff ID of Guide: {}
-Unit Fee: ${} (This is the charge per guest on top of the cost of their tickets etc.)
 Primary Customer's ID: {}""".format(*trip))
     
     input("\n\n  Press Enter to view the contents of the trip_member table...")
     
-    # Get the contents of the trip_member table
-    cursor.execute("SELECT * FROM trip_member")
+    # Get the first 6 entries of the trip_member table
+    cursor.execute("SELECT * FROM trip_member LIMIT 6")
     trip_members = cursor.fetchall()
     
     # Display trip_member info
@@ -109,15 +106,14 @@ Trip ID: {}
 Name: {} {} (Result of None None means this info is in the customer table)
 Date of Birth: {}
 Reservations: {}
-Waiver: ${}
+Waiver: {}
 Email: {} (Result of None means this info is in the customer table)
 Phone Number: {} (Ditto)
 Customer ID: {} (Result of None means this trip member has no customer account)
 Passport Status: {}
 Emergency Contact Number: {}
 Emergency Contact Name: {}
-Emergency Contact Relationship: {}
-Cost: ${} (This is the total cost of the customer's travel, lodging, etc.)""".format(*trip_member))
+Emergency Contact Relationship: {}""".format(*trip_member))
     
     input("\n\n  Press Enter to view the contents of the guide requirements table...")
     
@@ -176,7 +172,7 @@ Description:
     input("\n\n  Press Enter to view the contents of the orders table...")
     
     # Get the contents of the orders table
-    cursor.execute("SELECT * FROM orders")
+    cursor.execute("SELECT * FROM orders LIMIT 6")
     orders = cursor.fetchall()
     
     # Display order info
@@ -193,7 +189,7 @@ Shipping Info: (Will show "None" for all entries if picking up in store)
     input("\n\n  Press Enter to view the contents of the order item table...")
     
     # Get the contents of the order_item table
-    cursor.execute("SELECT * FROM order_item")
+    cursor.execute("SELECT * FROM order_item LIMIT 6")
     order_items = cursor.fetchall()
     
     # Display order_item info
@@ -211,7 +207,7 @@ Order ID: {}""".format(*order_item))
     input("\n\n  Press Enter to view the contents of the rental table...")
     
     # Get the contents of the rental table
-    cursor.execute("SELECT * FROM rental")
+    cursor.execute("SELECT * FROM rental LIMIT 6")
     rentals = cursor.fetchall()
     
     # Display rental info
@@ -239,6 +235,22 @@ Rate: ${} (per day)
 Product Condition: {}
 Product Code: {}
 Rental ID: {} ("None" if not rented/reserved currently)""".format(*eqp))
+    
+    input("\n\n  Press Enter to view the contents of the rental history table...")
+    
+    # Get the contents of the rental_history table
+    cursor.execute("SELECT * FROM rental_history LIMIT 6")
+    eqps = cursor.fetchall()
+    
+    # Display rental_history info
+    print("\n\n--Rental History--")
+    for eqp in eqps:
+        print("""
+ID: {}
+Item ID: {} (Foreign key for rental_inventory)
+Rental ID: {} (Foreign key for rental)
+Issue Condition: {}
+Return Condition: {} (Value of None means it is still out for rental)""".format(*eqp))
     
     input("\n\n  Phew, we made it! Press Enter to exit...")
 
