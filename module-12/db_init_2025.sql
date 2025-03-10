@@ -2,7 +2,7 @@
     Title: db_init_2025.sql
     Authors: Vaneshiea Bell, DeJanae Faison, Jess Monnier (based loosely on script by Professor Sue Sampson)
     Created: 22 February 2025
-	Last Modified: 27 February 2025
+	Last Modified: 2 March 2025
     Description: outland database initialization script.
 */
 
